@@ -1,0 +1,9 @@
+.Rproj.user
+.Rhistory
+.RData
+.Ruserdata
+*.pdf
+*.jpg
+*.png
+*.svg
+.DS_Store

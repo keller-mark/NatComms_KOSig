@@ -27,7 +27,7 @@ BootstrapDiff_final_meanclone <- function(muttype_profile,cnum, subnum, bsnum,h,
   sel_parents_percentage_all_diff <- sel_parents_percentage_all-parentGenome_percentage
   cloneFrobeniusDist <- apply(sel_parents_percentage_all_diff,2, function(x) norm(as.matrix(x),"f"))
   cloneFrobeniusDist_threshold <- quantile(cloneFrobeniusDist, probs = 0.99)
-  print(cloneFrobeniusDist_threshold)
+  #print(cloneFrobeniusDist_threshold)
   
   clonecentroidDist_all <- NULL
   p1_clonecentroidDist_all <- NULL
@@ -68,7 +68,7 @@ BootstrapDiff_final_meanclone <- function(muttype_profile,cnum, subnum, bsnum,h,
     sel_subclones_percentage_all_diff <- sel_subclones_percentage_all-subclone.centroid
     SubcloneFrobeniusDist <- apply(sel_subclones_percentage_all_diff,2, function(x) norm(as.matrix(x),"f"))
     SubcloneFrobeniusDist_threshold <- quantile(SubcloneFrobeniusDist, probs = 0.99)
-    print(SubcloneFrobeniusDist_threshold)
+    #print(SubcloneFrobeniusDist_threshold)
     
     p1_SubclonecentroidDist_all <- round(length(which(SubcloneFrobeniusDist>clonecentroidDist))/length(SubcloneFrobeniusDist),digits = 4)
     
@@ -95,7 +95,7 @@ BootstrapDiff_final_meanclone <- function(muttype_profile,cnum, subnum, bsnum,h,
                    panel.grid.minor.y = element_blank(),
                    panel.background = element_rect(fill = "white"),
                    panel.border = element_rect(colour = "black", fill=NA))
-    print(g1)
+    #print(g1)
     dev.off()
     
   }
@@ -192,13 +192,13 @@ BootstrapSig_quantile_final_indel_bg <- function(muttype_profile,parent_muttype_
   #a=sum(parentGenome_revised[which((parentGenome_revised>final_cutoff))])
   # a_percentage <- a/sum(parentGenome_revised)
   if(length(which((parentGenome_percentage<=bootstrapsubClone_threshold)))==96 | (clonecentroidDist<=subcloneFrobeniusDist_threshold)){
-    print(paste0("clone is not distint from subclones"))
+    #print(paste0("clone is not distint from subclones"))
     stop_flag <- 1  # clone is not distint from subclones
   } else {
     p <- 0
     stop_flag <- 0
     while(p<=subclonesum & stop_flag==0){
-      print(paste0("p:",p,"/",subclonesum))
+      #print(paste0("p:",p,"/",subclonesum))
       parentExposure_count <- subclonesum-p
       KnockoutExposure_count <- p
       
@@ -209,7 +209,7 @@ BootstrapSig_quantile_final_indel_bg <- function(muttype_profile,parent_muttype_
       bs_parentExposureGenome_all <- NULL
       bs_reclonecentroidDist_all <- NULL
       for(nIter in 1:100){
-        print(nIter)
+        #print(nIter)
         #bs_parentGenome <- rmultinom(1,sum(parentclones), parentGenome)
         bs_parentExposureGenome <- rmultinom(1,parentExposure_count, parentGenome_percentage)
         #sel_idx <- sample(1:bsnum,7,replace=T)
@@ -229,10 +229,10 @@ BootstrapSig_quantile_final_indel_bg <- function(muttype_profile,parent_muttype_
         #length(which((reconstructclone>final_cutoff)))
         
         #reconstructclonecentroidDist <- c(reconstructclonecentroidDist,norm(as.matrix(reconstructclone/sum(reconstructclone)-subclone.centroid ),"f"))
-        # print(paste0("reconstructclonecentroidDist:",reconstructclonecentroidDist))
+        # #print(paste0("reconstructclonecentroidDist:",reconstructclonecentroidDist))
         
         #reconstructclonetoparentDist <- c(reconstructclonetoparentDist,norm(as.matrix(reconstructclone/sum(reconstructclone)-parentGenome_percentage ),"f"))
-        # print(paste0("reconstructclonetoparentDist:",reconstructclonetoparentDist))
+        # #print(paste0("reconstructclonetoparentDist:",reconstructclonetoparentDist))
         
         KnockoutExposure_all <- cbind(KnockoutExposure_all,KnockoutExposure)
         bs_parentExposureGenome_all <- cbind(bs_parentExposureGenome_all,bs_parentExposureGenome)
@@ -244,17 +244,17 @@ BootstrapSig_quantile_final_indel_bg <- function(muttype_profile,parent_muttype_
       reconstructclone_all_percentage <- reconstructclone_all/colSums(reconstructclone_all)[col(reconstructclone_all)]
       if(max(apply((bootstrapsubClone_threshold-reconstructclone_all_percentage), 2, min))<0 & min(bs_reclonecentroidDist_all)>cloneFrobeniusDist_threshold){
         p <- p+1
-        # print(paste0(max(apply((bootstrapClone_max-reconstructclone_all_percentage), 2, min))))
-        #  print(paste0(min(bs_reclonecentroidDist_all),"/",max(subcloneFrobeniusDist_threshold,cloneFrobeniusDist_threshold)))
+        # #print(paste0(max(apply((bootstrapClone_max-reconstructclone_all_percentage), 2, min))))
+        #  #print(paste0(min(bs_reclonecentroidDist_all),"/",max(subcloneFrobeniusDist_threshold,cloneFrobeniusDist_threshold)))
       } else {
         # reconstructclonetoparentDist[which(reconstructclonecentroidDist==reconstructclonecentroidDist_min)]
         reconstructDist_distinct <- which(apply((bootstrapsubClone_threshold-reconstructclone_all_percentage), 2, min)>=0 & bs_reclonecentroidDist_all<=cloneFrobeniusDist_threshold)
         reconstructDist_distinct_num <- length(reconstructDist_distinct)
-        #print(paste0("number of reconstructDist_distinct: ",reconstructDist_distinct_num))
+        ##print(paste0("number of reconstructDist_distinct: ",reconstructDist_distinct_num))
         if(reconstructDist_distinct_num>5){
-          print(paste0("number of reconstructDist_distinct: ",reconstructDist_distinct_num))
+          #print(paste0("number of reconstructDist_distinct: ",reconstructDist_distinct_num))
           stop_flag <- 1
-          print(paste0("parentExposurePercentage:",parentExposure_count/subclonesum))
+          #print(paste0("parentExposurePercentage:",parentExposure_count/subclonesum))
           KnockoutExposure_mean <- rowMeans(KnockoutExposure_all[,reconstructDist_distinct])
           parentExposure_mean <- rowMeans(bs_parentExposureGenome_all[,reconstructDist_distinct])
           #reconstructclonetoparentDist[which(reconstructclonecentroidDist==min(reconstructDist_distinct$toCentroid))]
@@ -290,7 +290,7 @@ BootstrapSig_quantile_final_indel_bg <- function(muttype_profile,parent_muttype_
 
 
 
-hap1_parentchild<- read.table("./parentchildindel_8types.txt",sep = "\t",header = T,as.is = T)
+hap1_parentchild<- read.table(here("parentchildindel_8types.txt"),sep = "\t",header = T,as.is = T)
 
 CloneNum <- 1
 SubcloneNum <- 7
@@ -317,7 +317,7 @@ BootstrapNum <- 100
 parentclones <- hap1_parentchild[,c(2,10,18,26,34,42,50,58,66)]
 
 for(i in 1:dim(knockoutlist)[1]){
-  print(i)
+  #print(i)
   knockoutgene <- knockoutlist[i,1]
   
   parentchildGenome <- hap1_parentchild[,c(1,(start_col+TotalcloneNum*(i-1)):(1+TotalcloneNum*i))]

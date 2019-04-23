@@ -288,7 +288,7 @@ BootstrapSig_quantile_final_rg_bg <- function(muttype_profile,parent_muttype_pro
 }
 
 
-hap1_parentchild10 <- read.table("./Sample_10rgtypes.txt",sep = "\t",header = T,as.is = T)
+hap1_parentchild10 <- read.table(here("Sample_10rgtypes.txt"),sep = "\t",header = T,as.is = T)
 CloneNum <- 1
 SubcloneNum <- 7
 TotalcloneNum <- SubcloneNum + CloneNum

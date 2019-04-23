@@ -6,7 +6,9 @@ library(plyr)
 library(reshape2)
 library(RColorBrewer)
 library(proxy) # Library of similarity/dissimilarity measures for 'dist()'
-knockoutlist<- read.table("./knockoutlist.txt", sep = "\t", header = T, as.is = T)
+library(here)
+
+knockoutlist<- read.table(here("knockoutlist.txt"), sep = "\t", header = T, as.is = T)
 
 bootstrapGenomesfun <- function(genomes){
   

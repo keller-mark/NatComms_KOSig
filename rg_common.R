@@ -4,9 +4,10 @@ library(gridExtra)
 library(scales)
 library(plyr)
 library(reshape2)
-
 library(proxy) # Library of similarity/dissimilarity measures for 'dist()'
-knockoutlist<- read.table("/nfs/cancer_archive04/xz3/a_1242/15_subs/knockoutlist.txt", sep = "\t", header = T, as.is = T)
+library(here)
+
+knockoutlist<- read.table(here("knockoutlist.txt"), sep = "\t", header = T, as.is = T)
 
 bootstrapGenomesfun <- function(genomes){
   

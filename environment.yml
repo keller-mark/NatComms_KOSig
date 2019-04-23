@@ -1,0 +1,22 @@
+name: natcomms-kosig
+channels:
+  - r
+  - conda-forge
+  - bioconda
+dependencies:
+  - r>=3.5
+  - r-biocmanager>=1.30
+  - r-xml>=3
+  - r-rcpparmadillo>=0.8
+  - r-here
+  - bioconductor-biostrings
+  - r-ggplot2
+  - r-gridextra
+  - r-scales
+  - r-plyr
+  - r-reshape2
+  - r-proxy
+  - r-nmf
+  - r-fastica
+  - r-pracma
+  - r-rcolorbrewer

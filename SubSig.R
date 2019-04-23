@@ -260,7 +260,7 @@ BootstrapSig_quantile_final_subs_bg <- function(muttype_profile,parent_muttype_p
 
 
 
-hap1_parentchild96 <- read.table("./hap1_parentchildsamples_96muts.txt",sep = "\t",header=T, as.is=T)
+hap1_parentchild96 <- read.table(here("hap1_parentchildsamples_96muts.txt"),sep = "\t",header=T, as.is=T)
 hap1_parentchild96_percentage <- hap1_parentchild96
 hap1_parentchild96_percentage[,2:73] <- hap1_parentchild96_percentage[,2:73]/colSums(hap1_parentchild96_percentage[,2:73])[col(hap1_parentchild96_percentage[,2:73])]
 ################################################################

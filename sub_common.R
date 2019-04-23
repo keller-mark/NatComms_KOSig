@@ -8,9 +8,10 @@ library(proxy) # Library of similarity/dissimilarity measures for 'dist()'
 library(NMF)
 library(fastICA)
 library(pracma)
+library(here)
 
-knockoutlist<- read.table("./knockoutlist.txt", sep = "\t", header = T, as.is = T)
-muttype_freq_template <- read.table("./muttype_freq_template.txt", sep = "\t", header = T, as.is = T)
+knockoutlist<- read.table(here("knockoutlist.txt"), sep = "\t", header = T, as.is = T)
+muttype_freq_template <- read.table(here("muttype_freq_template.txt"), sep = "\t", header = T, as.is = T)
 
 MeanDistGenomes <- function(genomes_96muttype){
   allDist <- NULL
@@ -151,7 +152,7 @@ plot_muttype <- function(muttype_freq, outputname){
 muttype_bysamples_relfreq <- function(allsubs,outputname){
   mypalette <- c("sky blue","black", "red", "grey", "seagreen2", "lightpink2")
   
-  muttype_freq_template <- read.table("/nfs/cancer_archive04/xz3/a_1242/14_subs_parent08_child0/muttype_freq_template.txt", sep = "\t", header = T, as.is = T)
+  muttype_freq_template <- read.table(here("muttype_freq_template.txt"), sep = "\t", header = T, as.is = T)
   samplelist <- data.frame(table(allsubs$Sample))
   names(samplelist) <- c("Sample","Freq")
   allsample_muttype_freq <- NULL
@@ -196,7 +197,7 @@ muttype_bysamples_relfreq <- function(allsubs,outputname){
 muttype_bysamples_freq <- function(allsubs,outputname){
   mypalette <- c("sky blue","black", "red", "grey", "seagreen2", "lightpink2")
   
-  muttype_freq_template <- read.table("/nfs/cancer_archive04/xz3/a_1242/14_subs_parent08_child0/muttype_freq_template.txt", sep = "\t", header = T, as.is = T)
+  muttype_freq_template <- read.table(here("muttype_freq_template.txt"), sep = "\t", header = T, as.is = T)
   samplelist <- data.frame(table(allsubs$Sample))
   names(samplelist) <- c("Sample","Freq")
   allsample_muttype_freq <- NULL
